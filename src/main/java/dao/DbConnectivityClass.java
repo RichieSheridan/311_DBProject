@@ -7,7 +7,7 @@ import service.MyLogger;
 
 import java.sql.*;
 public class DbConnectivityClass {
-    final static String DB_NAME="CSC311sherrc";
+    final static String DB_NAME="CSC311sherrcserver2";
         MyLogger lg= new MyLogger();
         final static String SQL_SERVER_URL = "jdbc:mysql://csc311sherrcserver.mysql.database.azure.com";//update this server name
         final static String DB_URL = "jdbc:mysql://csc311sherrcserver.mysql.database.azure.com/"+DB_NAME;//update this database name
