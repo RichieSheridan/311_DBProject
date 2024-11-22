@@ -95,7 +95,7 @@
 .table-row-cell:selected {
    -fx-background-color: whitesmoke;
    -fx-text-background-color:  #aa22CC;
-   /*-fx-border-width: 0.5px;*/
+   -fx-border-width: 0.3px;
 }
 
 /* scroll bar starts here */

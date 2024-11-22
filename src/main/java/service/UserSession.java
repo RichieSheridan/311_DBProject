@@ -1,7 +1,5 @@
 package service;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.prefs.Preferences;
 
 public class UserSession {
@@ -18,42 +16,46 @@ public class UserSession {
         this.password = password;
         this.privileges = privileges;
         Preferences userPreferences = Preferences.userRoot();
-        userPreferences.put("USERNAME",userName);
-        userPreferences.put("PASSWORD",password);
-        userPreferences.put("PRIVILEGES",privileges);
+        userPreferences.put("USERNAME", userName);
+        userPreferences.put("PASSWORD", password);
+        userPreferences.put("PRIVILEGES", privileges);
     }
 
-
-
-    public static UserSession getInstace(String userName,String password, String privileges) {
-        if(instance == null) {
+    //Synchronized for thread safety
+    public static synchronized UserSession getInstance(String userName, String password, String privileges) {
+        if (instance == null) {
             instance = new UserSession(userName, password, privileges);
+        } else {
+            instance.userName = userName;
+            instance.password = password;
+            instance.privileges = privileges;
+            Preferences userPreferences = Preferences.userRoot();
+            userPreferences.put("USERNAME", userName);
+            userPreferences.put("PASSWORD", password);
+            userPreferences.put("PRIVILEGES", privileges);
         }
         return instance;
     }
 
-    public static UserSession getInstace(String userName,String password) {
-        if(instance == null) {
-            instance = new UserSession(userName, password, "NONE");
-        }
-        return instance;
-    }
-    public String getUserName() {
-        return this.userName;
+    public static synchronized UserSession getInstance(String userName, String password) {
+        return getInstance(userName, password, "NONE");
     }
 
-    public String getPassword() {
-        return this.password;
-    }
+    public String getUserName() {return this.userName;}
 
-    public String getPrivileges() {
-        return this.privileges;
-    }
+    public String getPassword() {return this.password;}
 
-    public void cleanUserSession() {
-        this.userName = "";// or null
+    public String getPrivileges() {return this.privileges;}
+
+    public synchronized void cleanUserSession() {
+        this.userName = ""; // or null
         this.password = "";
-        this.privileges = "";// or null
+        this.privileges = ""; // or null
+        //Clear preferences
+        Preferences userPreferences = Preferences.userRoot();
+        userPreferences.remove("USERNAME");
+        userPreferences.remove("PASSWORD");
+        userPreferences.remove("PRIVILEGES");
     }
 
     @Override

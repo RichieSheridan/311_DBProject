@@ -12,7 +12,7 @@
 }
 
 .left_pane {
-    -fx-background-color: #a73;
+    -fx-background-color: #275ee8;
     -fx-pref-width: 130px;
     -fx-pref-height: 600px;
 }
@@ -22,21 +22,21 @@
 }
 
 .table_columns {
-    -fx-background-color: white;
+    -fx-background-color: #dcdcdc;
     -fx-text-fill: black;
 }
 
 
 .menu_bar {
-    -fx-background-color: #841;
+    -fx-background-color: #118488;
 }
 
 .anchor_pane {
-    -fx-background-color: #a73;
+    -fx-background-color: #275ee8;
 }
 
 .text_field_pane {
-    -fx-background-color: #79dc05;
+    -fx-background-color: #275ee8;
 
 }
 
