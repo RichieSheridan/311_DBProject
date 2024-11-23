@@ -125,3 +125,7 @@
 	-fx-background-radius: 2em;
 
 }
+
+.combo-box{
+    -fx-pref-width: 200px;
+}

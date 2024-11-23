@@ -21,6 +21,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -32,6 +35,7 @@ import service.MyLogger;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -72,7 +76,18 @@ public class DB_GUI_Controller implements Initializable {
     private MenuItem deleteMenuItem;
 
     @FXML
-    private TextField statusField; // Added for Task 7
+    private TextField statusField;
+
+    @FXML
+    private MenuItem newItem;
+    @FXML
+    private MenuItem ChangePic;
+    @FXML
+    private MenuItem logOut;
+    @FXML
+    private MenuItem ClearItem;
+    @FXML
+    private MenuItem CopyItem;
 
     //Regex patterns
     private final Pattern namePattern = Pattern.compile("^[A-Za-z]{2,50}$");
@@ -151,6 +166,15 @@ public class DB_GUI_Controller implements Initializable {
         deleteMenuItem.disableProperty().bind(
                 guestMode.or(tv.getSelectionModel().selectedItemProperty().isNull())
         );
+
+
+        editMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
+        deleteMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN));
+        newItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
+        ChangePic.setAccelerator(new KeyCodeCombination(KeyCode.P, KeyCombination.CONTROL_DOWN));
+        logOut.setAccelerator(new KeyCodeCombination(KeyCode.L, KeyCombination.CONTROL_DOWN));
+        ClearItem.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN));
+        CopyItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
     }
 
     @FXML
@@ -296,6 +320,18 @@ public class DB_GUI_Controller implements Initializable {
             } catch (IllegalArgumentException e) {
                 majorComboBox.setValue(null);
             }
+
+            if (p.getImageURL() != null && !p.getImageURL().isEmpty()) {
+                try {
+                    img_view.setImage(new Image(p.getImageURL()));
+                } catch (Exception e) {
+                    img_view.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/profile.png")).toExternalForm()));
+                }
+            } else {
+                //This sets to default image if the URL is blank
+                img_view.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/profile.png")).toExternalForm()));
+            }
+
         }
     }
 
